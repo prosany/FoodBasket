@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import './App.css';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import Orders from './components/Orders/Orders';
@@ -11,6 +12,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import Admin from './components/Admin/Admin';
 
 export const UserContext = createContext();
 
@@ -30,6 +32,9 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/checkout">
             <CheckOut />
+          </PrivateRoute>
+          <PrivateRoute path="/admin">
+            <Admin/>
           </PrivateRoute>
           <Route path="/login">
             <Login />
