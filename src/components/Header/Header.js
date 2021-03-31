@@ -2,7 +2,7 @@ import React from 'react';
 import './Header.css';
 import Logo from '../../media/logo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import {
     BrowserRouter as Router,
     Link
