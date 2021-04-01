@@ -39,3 +39,9 @@
     margin: 10px 0;
     text-align: center;
 }
+
+@media (max-width: 940px) {
+    .Search input[type="text"] {
+        width: 70%;
+    }
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Header.css';
 import Logo from '../../media/logo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,8 +7,12 @@ import {
     BrowserRouter as Router,
     Link
 } from "react-router-dom";
+import { UserContext } from '../../App';
 
 const Header = () => {
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const LoginUserImg = loggedInUser.userpicture;
+    const LoginUserName = loggedInUser.username;
     function navBar() {
         const navBar = document.getElementById("MainMenu");
         if (navBar.className === "MainMenu") {
@@ -17,6 +21,9 @@ const Header = () => {
             navBar.className = "MainMenu";
         }
     };
+    const reLoadPage = () => {
+        window.location.reload(true);
+    }
     return (
         <div>
             <header>
@@ -31,7 +38,7 @@ const Header = () => {
                             <li><Link to="/orders">Orders</Link></li>
                             <li><Link to="#">Best Deals</Link></li>
                             <li><Link to="/admin">Admin</Link></li>
-                            <li><Link to="/login"><span className="LoginBtn">Login</span></Link></li>
+                            <li>{loggedInUser.useremail ? <a className="LUser" title={LoginUserName} href="#" onClick={() => reLoadPage()}><img src={LoginUserImg}/><span>Logout</span></a> : <Link to="/login"><span className="LoginBtn">Login</span></Link>}</li>
                         </ul>
                     </nav>
                     <div className="NavBar">

@@ -39,3 +39,27 @@
     color: #fff;
     cursor: pointer;
 }
+
+@media (max-width: 1130px) {
+    .ProductName h3 {
+        font-size: 14px;
+    }
+}
+@media (max-width: 1090px) {
+    .SingleProduct {
+        width: 31%;
+    }
+    .ProductName h3 {
+        font-size: 15px;
+    }
+}
+@media (max-width: 780px) {
+    .SingleProduct {
+        width: 48%;
+    }
+}
+@media (max-width: 540px) {
+    .SingleProduct {
+        width: 98%;
+    }
+}

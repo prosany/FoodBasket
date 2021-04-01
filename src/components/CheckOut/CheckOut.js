@@ -1,24 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { UserContext } from '../../App';
 import PreLoader from '../PreLoader/PreLoader';
 import './CheckOut.css';
 
 const CheckOut = () => {
     const { id } = useParams();
+    const history = useHistory();
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [productForBuy, setProductForBuy] = useState([]);
+    const { name, price, productIMG, weight } = productForBuy;
     const [preLoad, setPreLoad] = useState(false);
     useEffect(() => {
-        fetch(`http://localhost:8080/products/${id}`)
+        fetch(`https://foodbasket1.herokuapp.com/products/${id}`)
             .then(res => res.json())
             .then(product => {
-                setProductForBuy(product)
+                setProductForBuy(product[0])
                 setPreLoad(true);
             })
-    }, [])
-    console.log(productForBuy);
+    }, []);
+
+    const sendOrderInfoInDB = {
+        name: name,
+        price: price,
+        productIMG: productIMG,
+        weight: weight
+    }
+    const confirmOrder = () => {
+        const orderDetails = {...loggedInUser, ...sendOrderInfoInDB, Date: (new Date().toString("dddd, mmmm dS, yyyy, g:i A TT"))};
+        const url = `https://foodbasket1.herokuapp.com/confirmOrder`;
+        fetch(url, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(orderDetails)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data){
+                history.push('/orders');
+            }
+        })
+    }
     return (
         <div className="marginTopBottom">
             <div className="container">
@@ -33,20 +56,16 @@ const CheckOut = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {
-                                productForBuy.map(product =>
-                                    <tr key={product._id}>
-                                        <td><img src={product.productIMG} alt={product.name} /></td>
-                                        <td>{product.name}</td>
-                                        <td>1</td>
-                                        <td>{product.price}</td>
-                                    </tr>
-                                )
-                            }
+                            <tr>
+                                <td><img src={productIMG} alt={name} /></td>
+                                <td>{name}</td>
+                                <td>1</td>
+                                <td>৳ {price}</td>
+                            </tr>
                         </tbody>
                     </table>
                     <div className="CheckOutBtn">
-                        <button className="OrderButton">Confirm Order</button>
+                        <button className="OrderButton" onClick={() => confirmOrder()}>Confirm Order</button>
                     </div>
                 </div> : <div className="center">
                     <PreLoader />

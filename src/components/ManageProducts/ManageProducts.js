@@ -1,31 +1,40 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useForm } from "react-hook-form";
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import './ManageProducts.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faBox, faPen, faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { UserContext } from '../../App';
+import PreLoader from '../PreLoader/PreLoader';
 
 const ManageProducts = () => {
     document.title = 'Manage Products - FoodBasket.Com';
+    const history = useHistory();
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [products, setProducts] = useState([]);
-    const { name, price, productIMG, weight, _id } = products;
+    const [preLoad, setPreLoad] = useState(false);
 
     useEffect(() => {
-        fetch('http://localhost:8080/products')
+        fetch('https://foodbasket1.herokuapp.com/products')
             .then(res => res.json())
-            .then(products => setProducts(products))
+            .then(products => {
+                setProducts(products)
+                setPreLoad(true);
+            })
     }, [])
 
     const deleteProduct = id => {
         console.log(id)
-        const url = `http://localhost:8080/deleteProduct/${id}`;
+        const url = `https://foodbasket1.herokuapp.com/deleteProduct/${id}`;
         fetch(url, {
             method: 'DELETE'
         })
-        .then(res => res.json())
-        .then(data => console.log(data))
-        console.log(id)
+            .then(res => res.json())
+            .then(data => {
+                if (data) {
+                    history.push('/admin');
+                }
+            })
     }
     return (
         <div className="container">
@@ -40,7 +49,7 @@ const ManageProducts = () => {
                 <div className="PageTitle">
                     <h3>Manage Products</h3>
                 </div>
-                <table>
+                {preLoad ? <table>
                     <thead>
                         <tr>
                             <th scope="col" className="THead">Image</th>
@@ -51,9 +60,6 @@ const ManageProducts = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            products.length === 0 && <th colSpan="5">Loading...</th>
-                        }
                         {
                             products.map(product => <tr id="EntryProduct" key={product._id}>
                                 <td><img src={product.productIMG} alt={product.name} /></td>
@@ -67,7 +73,9 @@ const ManageProducts = () => {
                             </tr>
                             )}
                     </tbody>
-                </table>
+                </table> : <div className="center">
+                    <PreLoader />
+                </div>}
             </div>
         </div>
     );

@@ -1,13 +1,15 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from 'react-router-dom';
 import './Admin.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faBox, faPen } from '@fortawesome/free-solid-svg-icons';
+import { UserContext } from '../../App';
 
 const Admin = () => {
     document.title = 'Add Products - FoodBasket.Com';
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [upProductImg, setUpProductImg] = useState('');
     const { register, handleSubmit, watch, errors } = useForm();
     const history = useHistory();
@@ -18,7 +20,7 @@ const Admin = () => {
             weight: data.weight,
             productIMG: upProductImg
         };
-        const url = `http://localhost:8080/addProduct`;
+        const url = `https://foodbasket1.herokuapp.com/addProduct`;
         fetch(url, {
             method: 'POST',
             headers: {

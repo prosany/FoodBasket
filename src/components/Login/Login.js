@@ -14,22 +14,10 @@ import {
 
 const Login = () => {
     document.title = 'Login - FoodBasket.Com';
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     let history = useHistory();
     let location = useLocation();
     let { from } = location.state || { from: { pathname: "/" } };
-
-    const [isSignedIn, setIsSignedIn] = useState(false);
-    const [user, setUser] = useState({
-        isSignedIn: false,
-        displayName: '',
-        email: '',
-        photo: '',
-        password: '',
-        error: '',
-        success: false,
-        updateUser: false
-    });
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
     if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
@@ -43,9 +31,9 @@ const Login = () => {
         firebase.auth()
             .signInWithPopup(google)
             .then((result) => {
-                setUser(result.user);
-                // console.log(result);
-                setLoggedInUser(result.user);
+                const { displayName, email, photoURL, emailVerified } = result.user;
+                const signedInUser = { username: displayName, useremail: email, userpicture: photoURL, verified: emailVerified }
+                setLoggedInUser(signedInUser);
                 history.replace(from);
             }).catch((error) => {
                 const errorMessage = error.message;
@@ -60,9 +48,9 @@ const Login = () => {
             .auth()
             .signInWithPopup(github)
             .then((result) => {
-                setUser(result.user);
-                // console.log(result);
-                setLoggedInUser(result.user);
+                const { displayName, email, photoURL, emailVerified } = result.user;
+                const signedInUser = { username: displayName, useremail: email, userpicture: photoURL, verified: emailVerified }
+                setLoggedInUser(signedInUser);
                 history.replace(from);
             }).catch((error) => {
                 const errorMessage = error.message;
@@ -70,9 +58,12 @@ const Login = () => {
             });
     }
     return (
-        <div>
-            <button className="GoogleSignIn-Btn" onClick={handleGoogleSignIn}><img src={GoolgeIcon} alt="Google Login"/> Continue with Google</button><br />
-            <button className="GitHubSignIn-Btn" onClick={handleGithubSignIn}><img src={GitHubIcon} alt="GitHub Login"/> Continue with GitHub</button>
+        <div className="container">
+            <div className="Login">
+                <h3>Social Login</h3>
+                <button className="GoogleSignIn-Btn" onClick={handleGoogleSignIn}><img src={GoolgeIcon} alt="Google Login" /> <p>Continue with Google</p></button><br />
+                <button className="GitHubSignIn-Btn" onClick={handleGithubSignIn}><img src={GitHubIcon} alt="GitHub Login" /> <p>Continue with GitHub</p></button>
+            </div>
         </div>
     );
 };

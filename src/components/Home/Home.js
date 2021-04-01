@@ -9,11 +9,10 @@ const Home = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [products, setProducts] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:8080/products')
+        fetch('https://foodbasket1.herokuapp.com/products')
             .then(res => res.json())
             .then(product => setProducts(product))
     }, [])
-    console.log(products)
     return (
         <div>
             {/* Home Page
