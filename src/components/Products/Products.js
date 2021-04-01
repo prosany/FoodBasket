@@ -1,11 +1,16 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router';
 import { UserContext } from '../../App';
 import './Products.css';
 
 
 const Products = ({product}) => {
+    const history = useHistory();
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const { name, price, productIMG, _id, weight }  = product;
+    const buyProduct = () => {
+        history.push(`/checkout/${_id}`);
+    }
     return (
         <>
             <div className="SingleProduct">
@@ -20,7 +25,7 @@ const Products = ({product}) => {
                         <h3>৳ {price}</h3>
                     </div>
                     <div className="BuyProduct">
-                        <button>Buy Now</button>
+                        <button onClick={buyProduct}>Buy Now</button>
                     </div>
                 </div>
             </div>

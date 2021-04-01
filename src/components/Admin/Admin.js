@@ -1,15 +1,16 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './Admin.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faBox, faPen } from '@fortawesome/free-solid-svg-icons';
 
 const Admin = () => {
-    document.title = 'Admin - FoodBasket.Com';
+    document.title = 'Add Products - FoodBasket.Com';
     const [upProductImg, setUpProductImg] = useState('');
     const { register, handleSubmit, watch, errors } = useForm();
+    const history = useHistory();
     const onSubmit = data => {
         const eventData = {
             name: data.name,
@@ -25,8 +26,12 @@ const Admin = () => {
             },
             body: JSON.stringify(eventData)
         })
-            .then(res => console.log('Server responded'))
-        console.log(eventData)
+            .then(res => res.json())
+            .then(data => {
+                if(data){
+                    history.push('/');
+                }
+            })
     };
 
     const handleProductImageUpload = event => {

@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 
 const Login = () => {
+    document.title = 'Login - FoodBasket.Com';
     let history = useHistory();
     let location = useLocation();
     let { from } = location.state || { from: { pathname: "/" } };

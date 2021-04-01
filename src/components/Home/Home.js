@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../App';
 import './Home.css';
 import Products from '../Products/Products';
+import PreLoader from '../PreLoader/PreLoader';
 
 const Home = () => {
     document.title = 'FoodBasket.Com - #1 Grocery Shop in Bangladesh!';
@@ -25,7 +26,7 @@ const Home = () => {
                 </div>
                 <div className="Products">
                     {
-                        products.length === 0 && <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                        products.length === 0 && <PreLoader />
                     }
                     {
                         products.map(product => <Products key={product._id} product={product}></Products>)
