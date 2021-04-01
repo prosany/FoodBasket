@@ -29,7 +29,7 @@ const Orders = () => {
         <div className="marginTopBottom">
             <div className="container">
                 <div className="URProfileInfo">
-                    <p>Hello, {loggedInUser.username} Thank you for {orders.length ? 'shopping' : 'choosing'} with us.</p>
+                    <p>Hello, {loggedInUser.username} Thank you for {orders.length ? 'shopping with us.' : 'choosing us.'}</p>
                     <div className="UserBox">
                         <div className="UserPP">
                             <img src={loggedInUser.userpicture} alt={loggedInUser.username} />
