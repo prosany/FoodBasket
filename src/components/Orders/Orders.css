@@ -62,3 +62,17 @@
 .VNO {
     color: red;
 }
+
+
+@media (max-width: 940px) {
+    .UserBox {
+        width: 80%;
+        margin: 10px 0;
+    }
+}
+@media (max-width: 768px) {
+    .UserBox {
+        width: 100%;
+        margin: 10px 0;
+    }
+}

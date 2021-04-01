@@ -34,3 +34,16 @@
 .GoogleSignIn-Btn p, .GitHubSignIn-Btn p {
     display: inline;
 }
+
+
+
+@media (max-width: 768px) {
+    .GoogleSignIn-Btn, .GitHubSignIn-Btn {
+        width: 70%;
+    }
+}
+@media (max-width: 500px) {
+    .GoogleSignIn-Btn, .GitHubSignIn-Btn {
+        width: 100%;
+    }
+}

@@ -15,8 +15,6 @@ const Home = () => {
     }, [])
     return (
         <div>
-            {/* Home Page
-            Welcome {loggedInUser.displayName} */}
             <div className="container">
                 <div className="Search">
                     <h3>Search for Products</h3>

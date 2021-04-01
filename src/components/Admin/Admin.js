@@ -30,7 +30,7 @@ const Admin = () => {
         })
             .then(res => res.json())
             .then(data => {
-                if(data){
+                if (data) {
                     history.push('/');
                 }
             })

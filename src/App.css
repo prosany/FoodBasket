@@ -75,6 +75,40 @@ a {
   margin: 15px 0;
 }
 
+@media (max-width: 800px) {
+  .Dashborad {
+    width: 100%;
+    margin: 0 0;
+    border-right: 0;
+  margin-right: 0;
+  height: auto;
+  }
+  .ProductOptions {
+    width: 100%;
+    margin: 2px 0;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .PageTitle {
   line-height: 40px;
   background: #d3a9e8;
