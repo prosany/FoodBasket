@@ -27,8 +27,10 @@ This is an online e-commerce website project. [FoodBasket](https://foodbasket-co
 - https://foodbasket1.herokuapp.com/orders?useremail=example@example.com `(Load Products Base On User Email Address)`
 
 ## Installation Guide
-**SETPS**
-1. npx create reactapp `App Name`
-2. Code . `For Open in VS Code, You can skip this step if you want`
-3. npm install
-4. Done. You're ready to go
+### **SETPS**
+    1. npx create reactapp `App Name`
+    2. Code . `For Open in VS Code, You can skip this step if you want`
+    3. npm install
+    4. Done. You're ready to go
+ 
+### Thanks
